@@ -1,6 +1,8 @@
-import React, { useState, useEffect, unstable_Profiler as Profiler } from 'react';
+/** @jsxRuntime classic */
+/** @jsx jsx */
+import { css, jsx } from '@emotion/react';
+import { useState, Profiler } from 'react';
 import styled from 'styled-components';
-import { css } from 'emotion';
 import eStyled from '@emotion/styled';
 const { useStyle: useHookStyle } = require('hook-style/dist/hook-style.js');
 const { useStyle: useStyledHooks } = require('styled-hooks/dist/styled-hooks.js');
@@ -32,7 +34,7 @@ const EmotionStyledBox = eStyled.div`
 const EmotionContainer = ({ border, children, ...props }) => {
   return (
     <div
-      className={css`
+      css={css`
         padding: 1rem;
         background: red;
         border: ${border ? '1rem solid yellow' : 'none'};
@@ -47,7 +49,7 @@ const EmotionContainer = ({ border, children, ...props }) => {
 const EmotionBox = ({ children, ...props }) => {
   return (
     <div
-      className={css`
+      css={css`
         padding: 1rem;
         background: black;
         color: white;
