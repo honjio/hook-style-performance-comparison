@@ -31,6 +31,18 @@ const EmotionStyledBox = eStyled.div`
   color: white;
 `;
 
+const emotionContainer = css`
+  padding: 1rem;
+  background: red;
+  border: null;
+`;
+
+const emotionBox = css`
+  padding: 1rem;
+  background: black;
+  color: white;
+`;
+
 const EmotionContainer = ({ border, children, ...props }) => {
   return (
     <div
@@ -137,13 +149,15 @@ const log = (id, phase, actualTime, baseTime, startTime, commitTime) => {
 export default function App() {
   const [isStyledComponentsActive, setIsStyledComponentsActive] = useState(false);
   const [isEmotionStyledActive, setIsEmotionStyledActive] = useState(false);
-  const [isEmotionActive, setIsEmotionActive] = useState(false);
+  const [isEmotionActive1, setIsEmotionActive1] = useState(false);
+  const [isEmotionActive2, setIsEmotionActive2] = useState(false);
   const [isHookStyleActive, setIsHookStyleActive] = useState(false);
   const [isStyledHooksActive, setIsStyledHooksActive] = useState(false);
   const isAnythingActive = areAnyTruthy([
     isStyledComponentsActive,
     isEmotionStyledActive,
-    isEmotionActive,
+    isEmotionActive1,
+    isEmotionActive2,
     isHookStyleActive,
     isStyledHooksActive
   ]);
@@ -165,9 +179,13 @@ export default function App() {
           {isEmotionStyledActive ? 'Remove ' : 'Add '}
           <code>@emotion/styled</code>
         </button>{' '}
-        <button disabled={isAnythingActive && !isEmotionActive} onClick={() => setIsEmotionActive(!isEmotionActive)}>
-          {isEmotionActive ? 'Remove ' : 'Add '}
-          <code>emotion</code>
+        <button disabled={isAnythingActive && !isEmotionActive1} onClick={() => setIsEmotionActive1(!isEmotionActive1)}>
+          {isEmotionActive1 ? 'Remove ' : 'Add '}
+          <code>@emotion/react - 01</code>
+        </button>{' '}
+        <button disabled={isAnythingActive && !isEmotionActive2} onClick={() => setIsEmotionActive2(!isEmotionActive2)}>
+          {isEmotionActive2 ? 'Remove ' : 'Add '}
+          <code>@emotion/react - 02</code>
         </button>{' '}
         <button
           disabled={isAnythingActive && !isHookStyleActive}
@@ -210,7 +228,20 @@ export default function App() {
           ))}
         </Profiler>
       )}
-      {isEmotionActive && (
+      {isEmotionActive1 && (
+        <Profiler id="emotion" onRender={log}>
+          {range.map(index => (
+            <div css={emotionContainer} key={index}>
+              <div css={emotionBox}>
+                <div css={[emotionContainer, {border: '1rem solid yellow'}]}>
+                  <div css={emotionBox}>{index + 1}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </Profiler>
+      )}
+      {isEmotionActive2 && (
         <Profiler id="emotion" onRender={log}>
           {range.map(index => (
             <EmotionContainer key={index}>
