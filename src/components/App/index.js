@@ -1,7 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx jsx */
 import { css, jsx } from '@emotion/react';
-import { useState, Profiler } from 'react';
+import { useState, Profiler, useEffect } from 'react';
 import styled from 'styled-components';
 import eStyled from '@emotion/styled';
 const { useStyle: useHookStyle } = require('hook-style/dist/hook-style.js');
@@ -30,6 +30,44 @@ const EmotionStyledBox = eStyled.div`
   background: black;
   color: white;
 `;
+
+const _EmotionComponentA = ({ className, children }) => (
+  <div className={className}>
+    <div className="box">
+      <div className="container">
+        <div className={"box"}>{children}</div>
+      </div>
+  </div>
+</div>
+);
+
+const EmotionComponentA = eStyled(_EmotionComponentA)`
+  padding: 1rem;
+  background: red;
+  border: none;
+
+  > .box, .container > .box {
+    padding: 1rem;
+    background: black;
+    color: white;
+
+    > .container {
+      padding: 1rem;
+      background: red;
+      border: ${props => (props.border ? '1rem solid yellow' : 'none')};
+    }
+  }
+`;
+
+const EmotionComponentB = ({children}) => (
+  <EmotionStyledContainer>
+  <EmotionStyledBox>
+    <EmotionStyledContainer border>
+      <EmotionStyledBox>{children}</EmotionStyledBox>
+    </EmotionStyledContainer>
+  </EmotionStyledBox>
+</EmotionStyledContainer>
+);
 
 const emotionContainer = css`
   padding: 1rem;
@@ -139,32 +177,53 @@ const areAnyTruthy = arr => arr.filter(x => x).length > 0;
 
 const log = (id, phase, actualTime, baseTime, startTime, commitTime) => {
   console.group(`${id}:${phase}`);
-  console.log(`Actual: ${actualTime}`);
-  console.log(`Base:   ${baseTime}`);
+  console.log(`Actual: ${actualTime / 1000} ms`);
+  console.log(`Base:   ${baseTime / 1000} ms`);
   // console.log(`Start time: ${startTime}`);
   // console.log(`Commit time: ${commitTime}`);
   console.groupEnd(`${id}${phase}`);
 };
 
 export default function App() {
+  const [isComponentsActive, setIssComponentsActive] = useState(false);
   const [isStyledComponentsActive, setIsStyledComponentsActive] = useState(false);
-  const [isEmotionStyledActive, setIsEmotionStyledActive] = useState(false);
+  const [isEmotionStyledActive1, setIsEmotionStyledActive1] = useState(false);
+  const [isEmotionStyledActive2, setIsEmotionStyledActive2] = useState(false);
+  const [isEmotionStyledActive3, setIsEmotionStyledActive3] = useState(false);
   const [isEmotionActive1, setIsEmotionActive1] = useState(false);
   const [isEmotionActive2, setIsEmotionActive2] = useState(false);
   const [isHookStyleActive, setIsHookStyleActive] = useState(false);
   const [isStyledHooksActive, setIsStyledHooksActive] = useState(false);
   const isAnythingActive = areAnyTruthy([
+    isComponentsActive,
     isStyledComponentsActive,
-    isEmotionStyledActive,
+    isEmotionStyledActive1,
+    isEmotionStyledActive2,
+    isEmotionStyledActive3,
     isEmotionActive1,
     isEmotionActive2,
     isHookStyleActive,
     isStyledHooksActive
   ]);
 
+  const startTime = Date.now();
+  useEffect(() => {
+    if (isAnythingActive) {
+      const endTime = Date.now();
+      console.log(`DOM mount time - ${(endTime - startTime)/1000}ms`);
+    }
+  });
+
   return (
     <div>
       <div>
+        <button
+          disabled={isAnythingActive && !isComponentsActive}
+          onClick={() => setIssComponentsActive(!isComponentsActive)}
+        >
+          {isComponentsActive ? 'Remove ' : 'Add '}
+          <code>react-components</code>
+        </button>{' '}
         <button
           disabled={isAnythingActive && !isStyledComponentsActive}
           onClick={() => setIsStyledComponentsActive(!isStyledComponentsActive)}
@@ -173,19 +232,33 @@ export default function App() {
           <code>styled-components</code>
         </button>{' '}
         <button
-          disabled={isAnythingActive && !isEmotionStyledActive}
-          onClick={() => setIsEmotionStyledActive(!isEmotionStyledActive)}
+          disabled={isAnythingActive && !isEmotionStyledActive1}
+          onClick={() => setIsEmotionStyledActive1(!isEmotionStyledActive1)}
         >
-          {isEmotionStyledActive ? 'Remove ' : 'Add '}
-          <code>@emotion/styled</code>
+          {isEmotionStyledActive1 ? 'Remove ' : 'Add '}
+          <code>@emotion/styled - 1</code>
+        </button>{' '}
+        <button
+          disabled={isAnythingActive && !isEmotionStyledActive2}
+          onClick={() => setIsEmotionStyledActive2(!isEmotionStyledActive2)}
+        >
+          {isEmotionStyledActive2 ? 'Remove ' : 'Add '}
+          <code>@emotion/styled - 2</code>
+        </button>{' '}
+        <button
+          disabled={isAnythingActive && !isEmotionStyledActive3}
+          onClick={() => setIsEmotionStyledActive3(!isEmotionStyledActive3)}
+        >
+          {isEmotionStyledActive3 ? 'Remove ' : 'Add '}
+          <code>@emotion/styled - 3</code>
         </button>{' '}
         <button disabled={isAnythingActive && !isEmotionActive1} onClick={() => setIsEmotionActive1(!isEmotionActive1)}>
           {isEmotionActive1 ? 'Remove ' : 'Add '}
-          <code>@emotion/react - 01</code>
+          <code>@emotion/react - 1</code>
         </button>{' '}
         <button disabled={isAnythingActive && !isEmotionActive2} onClick={() => setIsEmotionActive2(!isEmotionActive2)}>
           {isEmotionActive2 ? 'Remove ' : 'Add '}
-          <code>@emotion/react - 02</code>
+          <code>@emotion/react - 2</code>
         </button>{' '}
         <button
           disabled={isAnythingActive && !isHookStyleActive}
@@ -202,6 +275,19 @@ export default function App() {
           <code>styled-hooks</code>
         </button>
       </div>
+      {isComponentsActive && (
+        <Profiler id="react-components" onRender={log}>
+          {range.map(index => (
+            <div key={index}>
+              <div>
+                <div>
+                  <div>{index + 1}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </Profiler>
+      )}
       {isStyledComponentsActive && (
         <Profiler id="styled-components" onRender={log}>
           {range.map(index => (
@@ -215,8 +301,8 @@ export default function App() {
           ))}
         </Profiler>
       )}
-      {isEmotionStyledActive && (
-        <Profiler id="@emotion/styled" onRender={log}>
+      {isEmotionStyledActive1 && (
+        <Profiler id="@emotion/styled-1" onRender={log}>
           {range.map(index => (
             <EmotionStyledContainer key={index}>
               <EmotionStyledBox>
@@ -228,8 +314,22 @@ export default function App() {
           ))}
         </Profiler>
       )}
+      {isEmotionStyledActive2 && (
+        <Profiler id="@emotion/styled-2" onRender={log}>
+          {range.map(index => (
+            <EmotionComponentA border key={index}>{index + 1}</EmotionComponentA>
+          ))}
+        </Profiler>
+      )}
+      {isEmotionStyledActive3 && (
+        <Profiler id="@emotion/styled-3" onRender={log}>
+          {range.map(index => (
+            <EmotionComponentB key={index}>{index + 1}</EmotionComponentB>
+          ))}
+        </Profiler>
+      )}
       {isEmotionActive1 && (
-        <Profiler id="emotion" onRender={log}>
+        <Profiler id="@emotion/react-1" onRender={log}>
           {range.map(index => (
             <div css={emotionContainer} key={index}>
               <div css={emotionBox}>
@@ -242,7 +342,7 @@ export default function App() {
         </Profiler>
       )}
       {isEmotionActive2 && (
-        <Profiler id="emotion" onRender={log}>
+        <Profiler id="@emotion/react-2" onRender={log}>
           {range.map(index => (
             <EmotionContainer key={index}>
               <EmotionBox>
