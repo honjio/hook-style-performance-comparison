@@ -48,6 +48,9 @@ fast > slow
 
 各ライブラリの計測結果を記載
 
+* Actual time, Base time についてはこちら [Profile API](https://ja.reactjs.org/docs/profiler.html#onrender-callback) を見てください
+* Mount time は useEffect が実行されるまでの時間です
+
 #### react-component v17 non-style
 
 ```jsx
