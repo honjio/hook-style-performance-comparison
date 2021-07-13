@@ -235,3 +235,13 @@ const EmotionBox = ({ children, ...props }) => (
 * @emotion/styled v11 と styled-component v5 のパフォーマンス差はそこまで無い
 * @emotion/react (css prop) は思ったより遅い（特に dom の mount が
 * @emotion/styled において個々の要素を styled component 化するのと、幾つかの要素を束ねて styled component 化するでは若干後者のパフォーマンスが良さそう。今回は個々の要素と言っても２つしか無いので、もっと増えれば差が出てくるかも。
+
+### その他 css-in-js パフォーマンス関連資料
+
+[3. simnalamburt/css-in-js-benchmark](https://github.com/simnalamburt/css-in-js-benchmark/) でも @emotion/react, @emotion/styled, styled-component, etc... のパフォーマンス計測を行うことができたので、確認したが概ね fork してきた本リポジトリで調査した結果と相違なかった。
+
+1. [modulz/stitches-bench _ 2021/06](https://github.com/modulz/stitches-bench)
+2. [necolas/react-native-web _ 2021/06](https://github.com/necolas/react-native-web/tree/master/packages/benchmarks)
+3. [simnalamburt/css-in-js-benchmark _ 2020/09](https://github.com/simnalamburt/css-in-js-benchmark/)
+4. [The battle of CSS in JS solutions _ 2020/05](https://github.com/petertenhoor/css-in-js-comparison)
+5. [A-gambit/CSS-IN-JS-Benchmarks _ 2018/03](https://github.com/A-gambit/CSS-IN-JS-Benchmarks/blob/master/RESULT.md)
