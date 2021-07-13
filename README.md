@@ -28,6 +28,16 @@ styled-components(v4)
 
 Forked this repository to 2021-07-12
 
+setup
+
+```bash
+# node_modules install
+yarn
+
+# https://localhost:8000
+yarn start
+```
+
 ### 結果
 
 fast > slow
