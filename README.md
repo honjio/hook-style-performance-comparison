@@ -67,10 +67,10 @@ fast > slow
 
 |Count|Actual time|Base Time|Mount time|
 |--|--|--|--|
-|1|0.058ms|0.022ms|0.112ms|
-|2|0.060ms|0.023ms|0.113ms|
-|3|0.061ms|0.021ms|0.111ms|
-|Average|0.060ms|0.022ms|0.112ms|
+|1|0.058s|0.022s|0.112s|
+|2|0.060s|0.023s|0.113s|
+|3|0.061s|0.021s|0.111s|
+|Average|0.060s|0.022s|0.112s|
 
 #### styled-component v5
 
@@ -91,10 +91,10 @@ const StyledComponentsBox = styled.div`/* スタイル定義 */`;
 
 |Count|Actual time|Base Time|Mount time|
 |--|--|--|--|
-|1|0.135ms|0.085ms|0.206ms|
-|2|0.139ms|0.088ms|0.215ms|
-|3|0.137ms|0.081ms|0.206ms|
-|Average|0.137ms|0.085ms|0.209ms|
+|1|0.135s|0.085s|0.206s|
+|2|0.139s|0.088s|0.215s|
+|3|0.137s|0.081s|0.206s|
+|Average|0.137s|0.085s|0.209s|
 
 #### @emotion/styled v11 pattern.1
 
@@ -115,10 +115,10 @@ const EmotionStyledBox = styled.div`/* スタイル定義 */`;
 
 |Count|Actual time|Base Time|Mount time|
 |--|--|--|--|
-|1|0.117ms|0.067ms|0.185ms|
-|2|0.118ms|0.070ms|0.190ms|
-|3|0.096ms|0.053ms|0.170ms|
-|Average|0.110ms|0.063ms|0.182ms|
+|1|0.117s|0.067s|0.185s|
+|2|0.118s|0.070s|0.190s|
+|3|0.096s|0.053s|0.170s|
+|Average|0.110s|0.063s|0.182s|
 
 #### @emotion/styled v11 pattern.2
 
@@ -143,10 +143,10 @@ const EmotionComponentA = eStyled(_EmotionComponentA)`/* スタイル定義 */`;
 
 |Count|Actual time|Base Time|Mount time|
 |--|--|--|--|
-|1|0.113ms|0.058ms|0.170ms|
-|2|0.112ms|0.064ms|0.167ms|
-|3|0.114ms|0.063ms|0.171ms|
-|Average|0.113ms|0.062ms|0.169ms|
+|1|0.113s|0.058s|0.170s|
+|2|0.112s|0.064s|0.167s|
+|3|0.114s|0.063s|0.171s|
+|Average|0.113s|0.062s|0.169s|
 
 #### @emotion/styled v11 pattern.3
 
@@ -169,10 +169,10 @@ const EmotionComponentB = ({children}) => (
 
 |Count|Actual time|Base Time|Mount time|
 |--|--|--|--|
-|1|0.130ms|0.079ms|0.195ms|
-|2|0.131ms|0.085ms|0.198ms|
-|3|0.128ms|0.077ms|0.196ms|
-|Average|0.130ms|0.080ms|0.196ms|
+|1|0.130s|0.079s|0.195s|
+|2|0.131s|0.085s|0.198s|
+|3|0.128s|0.077s|0.196s|
+|Average|0.130s|0.080s|0.196s|
 
 #### @emotion/react v11 pattern.1
 
@@ -195,10 +195,10 @@ const emotionBox = css`/* スタイル定義 */`;
 
 |Count|Actual time|Base Time|Mount time|
 |--|--|--|--|
-|1|0.084ms|0.041ms|0.434ms|
-|2|0.082ms|0.038ms|0.450ms|
-|3|0.088ms|0.044ms|0.423ms|
-|Average|0.085ms|0.041ms|0.436ms|
+|1|0.084s|0.041s|0.434s|
+|2|0.082s|0.038s|0.450s|
+|3|0.088s|0.044s|0.423s|
+|Average|0.085s|0.041s|0.436s|
 
 #### @emotion/react v11 pattern.2
 
@@ -224,10 +224,10 @@ const EmotionBox = ({ children, ...props }) => (
 
 |Count|Actual time|Base Time|Mount time|
 |--|--|--|--|
-|1|0.258ms|0.209ms|0.339ms|
-|2|0.266ms|0.215ms|0.347ms|
-|3|0.266ms|0.215ms|0.345ms|
-|Average|0.263ms|0.213ms|0.344ms|
+|1|0.258s|0.209s|0.339s|
+|2|0.266s|0.215s|0.347s|
+|3|0.266s|0.215s|0.345s|
+|Average|0.263s|0.213s|0.344s|
 
 ### 雑感
 
